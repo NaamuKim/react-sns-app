@@ -1,6 +1,8 @@
 import React from "react";
 import AppLayout from "../components/AppLayout";
 import { useSelector } from "react-redux";
+import PostCard from "../components/PostCard";
+import PostForm from "../components/PostForm";
 
 const Home = () => {
   const { isLoggedIn } = useSelector((state) => state.user);
@@ -8,7 +10,9 @@ const Home = () => {
   return (
     <AppLayout>
       {isLoggedIn && <PostForm />}
-      {mainPosts.map((post,index)=><PostCard key={post.id} post={post} />
+      {mainPosts.map((post, index) => (
+        <PostCard key={post.id} post={post} />
+      ))}
     </AppLayout>
   );
 };
