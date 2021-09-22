@@ -1,7 +1,6 @@
 import React from "react";
 import Link from "next/Link";
 import PropTypes from "prop-types";
-import CommentForm from "./CommentForm";
 
 const PostCardContent = ({ postData }) => (
   <div>
