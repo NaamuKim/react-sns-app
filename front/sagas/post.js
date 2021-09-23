@@ -47,11 +47,9 @@ function* removePost(action) {
     const id = shortId.generate();
     yield put({
       type: REMOVE_POST_SUCCESS,
-      data: {
-        id: action.data,
-      },
+      data: action.data,
     });
-    yield put({ type: REMOVE_POST_OF_ME, data: id });
+    yield put({ type: REMOVE_POST_OF_ME, data: action.data });
   } catch (err) {
     yield put({
       type: REMOVE_POST_FAILURE,
