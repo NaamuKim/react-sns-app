@@ -2,16 +2,22 @@ import { ADD_POST_TO_ME, REMOVE_POST_OF_ME } from "./post";
 import produce from "immer";
 
 export const initialState = {
-  logInLoading: false,
+  followLoading: false, // 팔로우 시도중
+  followDone: false,
+  followError: false,
+  unfollowLoading: false, // 언팔로우 시도중
+  unfollowDone: false,
+  unfollowError: false,
+  logInLoading: false, // 로그인 시도중
   logInDone: false,
   logInError: false,
-  logOutLoading: false,
+  logOutLoading: false, //로그아웃 시도중
   logOutDone: false,
   logOutError: null,
-  signUpLoading: false,
+  signUpLoading: false, //회원가입 시도중
   signUpDone: false,
   signUpFailure: null,
-  changeNicknameLoading: false,
+  changeNicknameLoading: false, //닉네임 변경 시도중
   changeNicknameDone: false,
   changeNicknameFailure: null,
   me: null,
@@ -67,6 +73,36 @@ export const logoutRequestAction = () => {
 const reducer = (state = initialState, action) => {
   return produce(state, (draft) => {
     switch (action.type) {
+      case FOLLOW_REQUEST:
+        draft.followLoading = true;
+        draft.followError = null;
+        draft.followDone = false;
+        break;
+      case FOLLOW_SUCCESS:
+        draft.followLoading = false;
+        draft.followDone = true;
+        draft.me.Followings.push({ id: action.data });
+        break;
+      case FOLLOW_FAILURE:
+        draft.followLoading = false;
+        draft.followError = action.error;
+        break;
+      case UNFOLLOW_REQUEST:
+        draft.unfollowLoading = true;
+        draft.unfollowError = null;
+        draft.unfollowDone = false;
+        break;
+      case UNFOLLOW_SUCCESS:
+        draft.unfollowLoading = false;
+        draft.unfollowDone = true;
+        draft.me.Followings = draft.me.Followings.filter(
+          (v) => v.id !== action.data
+        );
+        break;
+      case UNFOLLOW_FAILURE:
+        draft.unfollowLoading = false;
+        draft.unfollowError = action.error;
+        break;
       case LOG_IN_REQUEST:
         draft.logInLoading = true;
         draft.logInError = null;
