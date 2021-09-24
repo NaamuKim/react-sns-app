@@ -5,7 +5,7 @@ import faker from "faker";
 export const initialState = {
   mainPosts: [],
   imagePaths: [],
-  hasMorePost: true,
+  hasMorePosts: true,
   loadPostsLoading: false,
   loadPostsDone: false,
   loadPostsError: null,
@@ -30,7 +30,7 @@ export const generateDummyPost = (number) =>
         nickname: faker.name.findName(),
       },
       content: faker.lorem.paragraph(),
-      Images: [{ src: faker.image() }],
+      Images: [{ src: faker.image.image() }],
       Comments: [
         {
           User: {
@@ -97,6 +97,7 @@ const postReducer = (state = initialState, action) => {
         draft.loadPostLoading = false;
         draft.loadPostDone = true;
         draft.mainPosts = action.data.concat(draft.mainPosts);
+        draft.hasMorePosts = draft.mainPosts.length < 50;
         break;
       case LOAD_POSTS_FAILURE:
         draft.loadPostLoading = false;
