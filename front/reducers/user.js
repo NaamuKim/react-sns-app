@@ -48,15 +48,6 @@ export const UNFOLLOW_REQUEST = "UNFOLLOW_REQUEST";
 export const UNFOLLOW_SUCCESS = "UNFOLLOW_SUCCESS";
 export const UNFOLLOW_FAILURE = "UNFOLLOW_FAILURE";
 
-const dummyUser = (data) => ({
-  ...data,
-  nickname: "namu",
-  id: 1,
-  Posts: [],
-  Followings: [],
-  Followers: [],
-});
-
 export const loginRequestAction = (data) => {
   return {
     type: LOG_IN_REQUEST,

@@ -15,6 +15,7 @@ const ErrorMessage = styled.div`
 const SubmitWrapper = styled.div`
   margin-top: 10px;
 `;
+
 const Signup = () => {
   const dispatch = useDispatch();
   const { signUpLoading, signUpDone, signUpError, me } = useSelector(
