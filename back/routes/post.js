@@ -41,6 +41,6 @@ router.post("/:postId/comment", isLoggedIn, async (req, res, next) => {
 });
 
 router.delete("/", (req, res) => {
-  res.send("hello api");
+  res.json({ id: 1 });
 });
 module.exports = router;

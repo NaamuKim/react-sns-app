@@ -16,7 +16,6 @@ import {
   ADD_POST_REQUEST,
   ADD_POST_SUCCESS,
   ADD_POST_TO_ME,
-  generateDummyPost,
   LOAD_POSTS_FAILURE,
   LOAD_POSTS_REQUEST,
   LOAD_POSTS_SUCCESS,
@@ -48,16 +47,16 @@ function* addPost(action) {
 }
 
 function loadPostsAPI(data) {
-  return axios.post("/api/posts", data);
+  return axios.post("/posts", data);
 }
 
 function* loadPosts(action) {
   try {
-    // const result = yield call(addPostAPI, action.data);
+    const result = yield call(loadPostsAPI, action.data);
     yield delay(1000);
     yield put({
       type: LOAD_POSTS_SUCCESS,
-      data: generateDummyPost(10),
+      data: result.data,
     });
   } catch (err) {
     yield put({
