@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const morgan = require("morgan");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const passport = require("passport");
@@ -18,9 +19,8 @@ db.sequelize
     console.log("db 연결 성공");
   })
   .catch(console.error);
-
 passportConfig();
-
+app.use(morgan("dev"));
 app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 
 app.use(express.json());
@@ -39,6 +39,8 @@ app.get("/api", (req, res) => {
   res.send("hello api");
 });
 
+app.use("/posts", postsRouter);
+
 app.get("/posts", (req, res) => {
   res.json([
     {
@@ -55,8 +57,8 @@ app.get("/posts", (req, res) => {
     },
   ]);
 });
+
 app.use("/post", postRouter);
-app.use("/posts", postsRouter);
 app.use("/user", userRouter);
 
 app.listen(8080, () => {

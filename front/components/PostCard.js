@@ -30,7 +30,7 @@ const PostCard = ({ post }) => {
   const onRemovePost = useCallback(() => {
     dispatch({ type: REMOVE_POST_REQUEST, data: post.id });
   }, []);
-  const id = useSelector((state) => state.user.me?.id);
+  const { id } = useSelector((state) => state.user.me);
   return (
     <div style={{ marginBottom: 20 }}>
       <Card
@@ -110,12 +110,13 @@ const PostCard = ({ post }) => {
     </div>
   );
 };
+
 PostCard.propTypes = {
   post: PropTypes.shape({
     id: PropTypes.number,
     User: PropTypes.object,
     content: PropTypes.string,
-    createdAt: PropTypes.object,
+    createdAt: PropTypes.string,
     Comments: PropTypes.arrayOf(PropTypes.object),
     Images: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,

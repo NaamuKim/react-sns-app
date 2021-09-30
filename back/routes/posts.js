@@ -1,7 +1,6 @@
 const express = require("express");
 
-const { Post } = require("../models");
-const { User } = require("../models");
+const { Post, Image, User, Comment } = require("../models");
 
 const router = express.Router();
 
@@ -10,7 +9,7 @@ router.get("/", async (req, res, next) => {
     const posts = await Post.findAll({
       limit: 10,
       order: [["createdAt", "DESC"]],
-      include: [{ model: User }],
+      include: [{ model: User }, { model: Image }, { model: Comment }],
       // 뒤에서 앞으로
     });
     res.status(200).json(posts);

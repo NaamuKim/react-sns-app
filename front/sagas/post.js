@@ -47,13 +47,12 @@ function* addPost(action) {
 }
 
 function loadPostsAPI(data) {
-  return axios.post("/posts", data);
+  return axios.get("/posts", data);
 }
 
 function* loadPosts(action) {
   try {
     const result = yield call(loadPostsAPI, action.data);
-    yield delay(1000);
     yield put({
       type: LOAD_POSTS_SUCCESS,
       data: result.data,
@@ -91,7 +90,6 @@ function addCommentAPI(data) {
 function* addComment(action) {
   try {
     const result = yield call(addCommentAPI, action.data);
-    yield delay(1000);
     yield put({
       type: ADD_COMMENT_SUCCESS,
       data: result.data,
