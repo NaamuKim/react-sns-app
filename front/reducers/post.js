@@ -130,7 +130,7 @@ const postReducer = (state = initialState, action) => {
         draft.removePostLoading = false;
         draft.removePostDone = true;
         draft.mainPosts = draft.mainPosts.filter(
-          (v) => v.id !== action.data.id
+          (v) => v.id !== action.data.PostId
         );
         break;
       case REMOVE_POST_FAILURE:

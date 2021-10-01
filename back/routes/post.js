@@ -17,7 +17,7 @@ router.post("/", isLoggedIn, async (req, res, next) => {
         { model: Image },
         {
           model: Comment, //댓글 작성자
-          include: [{ model: User, attributes: ["id,nickname"] }],
+          include: [{ model: User, attributes: ["id", "nickname"] }],
         },
         {
           model: User,
@@ -108,7 +108,7 @@ router.delete("/:postId", isLoggedIn, async (req, res, next) => {
     await Post.destroy({
       where: { id: req.params.postId, UserId: req.user.id },
     });
-    res.status(200).json({ PostId: req.params.postId });
+    res.status(200).json({ PostId: parseInt(req.params.postId, 10) });
   } catch (error) {
     console.error(error);
     next(error);
