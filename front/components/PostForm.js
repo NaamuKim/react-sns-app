@@ -26,7 +26,7 @@ const PostForm = () => {
     }
     const formData = new FormData();
     imagePaths.forEach((p) => {
-      formData.append("image", i);
+      formData.append("image", p);
     });
     formData.append("content", text);
     return dispatch({ type: ADD_POST_REQUEST, data: formData });
@@ -46,14 +46,17 @@ const PostForm = () => {
       type: UPLOAD_IMAGES_REQUEST,
       data: imageFormData,
     });
-  });
+  }, []);
 
-  const onRemoveImage = useCallback((index) => () => {
-    dispatch({
-      type: REMOVE_IMAGE,
-      data: index,
-    });
-  });
+  const onRemoveImage = useCallback(
+    (index) => () => {
+      dispatch({
+        type: REMOVE_IMAGE,
+        data: index,
+      });
+    },
+    []
+  );
 
   return (
     <Form
@@ -81,16 +84,20 @@ const PostForm = () => {
           Together
         </Button>
       </div>
-      {imagePaths.map((v, i) => (
-        <div key={v} style={{ display: "inline-block" }}>
-          <img
-            src={`http://localhost:8080/${v}`}
-            style={{ width: "200px" }}
-            alt={v}
-          />
-        </div>
-      ))}
-      <Button onClick={onRemoveImage(i)}>제거</Button>
+      <div>
+        {imagePaths.map((v, i) => (
+          <div key={v} style={{ display: "inline-block" }}>
+            <img
+              src={`http://localhost:8080/${v}`}
+              style={{ width: "200px" }}
+              alt={v}
+            />
+            <div>
+              <Button onClick={onRemoveImage(i)}>제거</Button>
+            </div>
+          </div>
+        ))}
+      </div>
     </Form>
   );
 };

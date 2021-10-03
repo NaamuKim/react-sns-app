@@ -60,11 +60,6 @@ export const REMOVE_IMAGE = "REMOVE_IMAGE";
 export const ADD_POST_TO_ME = "ADD_POST_TO_ME";
 export const REMOVE_POST_OF_ME = "REMOVE_POST_OF_ME";
 
-export const addPost = (data) => ({
-  type: ADD_POST_REQUEST,
-  data,
-});
-
 const postReducer = (state = initialState, action) => {
   return produce(state, (draft) => {
     switch (action.type) {
