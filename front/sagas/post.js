@@ -1,12 +1,4 @@
-import {
-  all,
-  delay,
-  fork,
-  put,
-  throttle,
-  takeLatest,
-  call,
-} from "redux-saga/effects";
+import { all, fork, put, throttle, takeLatest, call } from "redux-saga/effects";
 import axios from "axios";
 import {
   ADD_COMMENT_FAILURE,

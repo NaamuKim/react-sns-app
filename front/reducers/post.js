@@ -71,13 +71,12 @@ const postReducer = (state = initialState, action) => {
         draft.uploadImagesDone = false;
         draft.uploadImagesError = null;
         break;
-      case UPLOAD_IMAGES_SUCCESS:
-        {
-          draft.imagePaths = action.data;
-          draft.uploadImagesLoading = false;
-          draft.uploadImagesDone = true;
-        }
+      case UPLOAD_IMAGES_SUCCESS: {
+        draft.imagePaths = action.data;
+        draft.uploadImagesLoading = false;
+        draft.uploadImagesDone = true;
         break;
+      }
       case UPLOAD_IMAGES_FAILURE:
         draft.uploadImagesLoading = false;
         draft.uploadImagesError = action.error;

@@ -1,5 +1,5 @@
 import { Button, Form, Input } from "antd";
-import { useCallback, useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   UPLOAD_IMAGES_REQUEST,
@@ -9,8 +9,8 @@ import {
 import useInput from "../hooks/useInput";
 
 const PostForm = () => {
+  const dispatch = useDispatch();
   const { imagePaths, addPostDone } = useSelector((state) => state.post);
-  const imageInput = useRef();
   const [text, onChangeText, setText] = useInput("");
 
   useEffect(() => {
@@ -18,7 +18,6 @@ const PostForm = () => {
       setText("");
     }
   }, [addPostDone]);
-  const dispatch = useDispatch();
 
   const onSubmit = useCallback(() => {
     if (!text || !text.trim()) {
@@ -32,6 +31,7 @@ const PostForm = () => {
     return dispatch({ type: ADD_POST_REQUEST, data: formData });
   }, [text, imagePaths]);
 
+  const imageInput = useRef();
   const onClickImageUpload = useCallback(() => {
     imageInput.current.click();
   }, [imageInput.current]);
@@ -101,4 +101,5 @@ const PostForm = () => {
     </Form>
   );
 };
+
 export default PostForm;
