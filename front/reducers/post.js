@@ -25,6 +25,9 @@ export const initialState = {
   uploadImagesLoading: false,
   uploadImagesDone: false,
   uploadImagesError: null,
+  togetherLoading: false,
+  togetherDone: false,
+  togetherError: null,
 };
 
 export const UPLOAD_IMAGES_REQUEST = "UPLOAD_IMAGES_REQUEST";
@@ -55,6 +58,10 @@ export const ADD_COMMENT_REQUEST = "ADD_COMMENT_REQUEST";
 export const ADD_COMMENT_SUCCESS = "ADD_COMMENT_SUCCESS";
 export const ADD_COMMENT_FAILURE = "ADD_COMMENT_FAILURE";
 
+export const TOGETHER_REQUEST = "TOGETHER_REQUEST";
+export const TOGETHER_SUCCESS = "TOGETHER_SUCCESS";
+export const TOGETHER_FAILURE = "TOGETHER_FAILURE";
+
 export const REMOVE_IMAGE = "REMOVE_IMAGE";
 
 export const ADD_POST_TO_ME = "ADD_POST_TO_ME";
@@ -65,6 +72,20 @@ const postReducer = (state = initialState, action) => {
     switch (action.type) {
       case REMOVE_IMAGE:
         draft.imagePaths = draft.imagePaths.filter((v, i) => i !== action.data);
+        break;
+      case TOGETHER_REQUEST:
+        draft.togetherLoading = true;
+        draft.togetherDone = false;
+        draft.togetherError = null;
+        break;
+      case TOGETHER_SUCCESS: {
+        draft.togetherLoading = false;
+        draft.togetherDone = true;
+        break;
+      }
+      case TOGETHER_FAILURE:
+        draft.togetherLoading = false;
+        draft.togetherError = action.error;
         break;
       case UPLOAD_IMAGES_REQUEST:
         draft.uploadImagesLoading = true;
