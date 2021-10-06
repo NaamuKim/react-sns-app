@@ -18,7 +18,9 @@ import {
   REMOVE_POST_OF_ME,
   REMOVE_POST_REQUEST,
   REMOVE_POST_SUCCESS,
+  TOGETHER_FAILURE,
   TOGETHER_REQUEST,
+  TOGETHER_SUCCESS,
   UNLIKE_POST_FAILURE,
   UNLIKE_POST_REQUEST,
   UNLIKE_POST_SUCCESS,
@@ -28,20 +30,20 @@ import {
 } from "../reducers/post";
 
 function togetherAPI(data) {
-  return axios.post("post/images", data);
+  return axios.post(`/post/${data}/retweet`, data);
 }
 
 function* together(action) {
   try {
-    const result = yield call(uploadImagesAPI, action.data);
+    const result = yield call(togetherAPI, action.data);
     yield put({
-      type: UPLOAD_IMAGES_SUCCESS,
+      type: TOGETHER_SUCCESS,
       data: result.data,
     });
   } catch (err) {
     yield put({
-      type: UPLOAD_IMAGES_FAILURE,
-      data: err.response.data,
+      type: TOGETHER_FAILURE,
+      error: err.response.data,
     });
   }
 }
@@ -60,7 +62,7 @@ function* uploadImages(action) {
   } catch (err) {
     yield put({
       type: UPLOAD_IMAGES_FAILURE,
-      data: err.response.data,
+      error: err.response.data,
     });
   }
 }
@@ -79,7 +81,7 @@ function* likePost(action) {
   } catch (err) {
     yield put({
       type: LIKE_POST_FAILURE,
-      data: err.response.data,
+      error: err.response.data,
     });
   }
 }
@@ -98,7 +100,7 @@ function* unlikePost(action) {
   } catch (err) {
     yield put({
       type: UNLIKE_POST_FAILURE,
-      data: err.response.data,
+      error: err.response.data,
     });
   }
 }
@@ -118,18 +120,18 @@ function* addPost(action) {
   } catch (err) {
     yield put({
       type: ADD_POST_FAILURE,
-      data: err.response.data,
+      error: err.response.data,
     });
   }
 }
 
-function loadPostsAPI(data) {
-  return axios.get("/posts", data);
+function loadPostsAPI(lastId) {
+  return axios.get(`/posts?lastId=${lastId || 0}`);
 }
 
 function* loadPosts(action) {
   try {
-    const result = yield call(loadPostsAPI, action.data);
+    const result = yield call(loadPostsAPI, action.lastId);
     yield put({
       type: LOAD_POSTS_SUCCESS,
       data: result.data,
@@ -137,7 +139,7 @@ function* loadPosts(action) {
   } catch (err) {
     yield put({
       type: LOAD_POSTS_FAILURE,
-      data: err.response.data,
+      error: err.response.data,
     });
   }
 }
@@ -157,7 +159,7 @@ function* removePost(action) {
   } catch (err) {
     yield put({
       type: REMOVE_POST_FAILURE,
-      data: err.response.data,
+      error: err.response.data,
     });
   }
 }
@@ -177,7 +179,7 @@ function* addComment(action) {
     console.error(err);
     yield put({
       type: ADD_COMMENT_FAILURE,
-      data: err.response.data,
+      error: err.response.data,
     });
   }
 }

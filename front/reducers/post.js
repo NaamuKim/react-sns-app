@@ -81,6 +81,7 @@ const postReducer = (state = initialState, action) => {
       case TOGETHER_SUCCESS: {
         draft.togetherLoading = false;
         draft.togetherDone = true;
+        draft.mainPosts.unshift(action.data);
         break;
       }
       case TOGETHER_FAILURE:
@@ -143,8 +144,8 @@ const postReducer = (state = initialState, action) => {
       case LOAD_POSTS_SUCCESS:
         draft.loadPostLoading = false;
         draft.loadPostDone = true;
-        draft.mainPosts = action.data.concat(draft.mainPosts);
-        draft.hasMorePosts = draft.mainPosts.length < 50;
+        draft.mainPosts = draft.mainPosts.concat(action.data);
+        draft.hasMorePosts = draft.mainPosts.length === 10;
         break;
       case LOAD_POSTS_FAILURE:
         draft.loadPostLoading = false;
