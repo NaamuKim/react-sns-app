@@ -71,6 +71,7 @@ const PostCard = ({ post }) => {
   }, [id]);
 
   const liked = post.Likers.find((v) => v.id === id);
+
   return (
     <div style={{ marginBottom: 20 }}>
       <Card
