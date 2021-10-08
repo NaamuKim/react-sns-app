@@ -2,9 +2,12 @@ import { ADD_POST_TO_ME, REMOVE_POST_OF_ME } from "./post";
 import produce from "immer";
 
 export const initialState = {
-  myInfoLoading: false, // 팔로우 시도중
-  myInfoDone: false,
-  myInfoError: false,
+  loadMyInfoLoading: false, // 내 정보 로딩 시도중
+  loadMyInfoDone: false,
+  loadMyInfoError: false,
+  loadUserLoading: false,
+  loadUserError: false,
+  loadUserDone: false,
   followLoading: false, // 팔로우 시도중
   followDone: false,
   followError: false,
@@ -23,16 +26,17 @@ export const initialState = {
   changeNicknameLoading: false, //닉네임 변경 시도중
   changeNicknameDone: false,
   changeNicknameFailure: null,
-  loadFollowingsLoading: false, //닉네임 변경 시도중
+  loadFollowingsLoading: false, //팔로잉 로딩 시도중
   loadFollowingsDone: false,
   loadFollowingsFailure: null,
-  loadFollowersLoading: false, //닉네임 변경 시도중
+  loadFollowersLoading: false, //팔로워 로딩 시도중
   loadFollowersDone: false,
   loadFollowersFailure: null,
-  removeFollowerLoading: false,
+  removeFollowerLoading: false, //팔로우 제거 시도중
   removeFollowerDone: false,
   removeFollowerFailure: null,
   me: null,
+  userinfo: null,
   signUpData: {},
   logInnData: {},
 };
@@ -40,6 +44,10 @@ export const initialState = {
 export const LOAD_MY_INFO_REQUEST = "LOAD_MY_INFO_REQUEST";
 export const LOAD_MY_INFO_SUCCESS = "LOAD_MY_INFO_SUCCESS";
 export const LOAD_MY_INFO_FAILURE = "LOAD_MY_INFO_FAILURE";
+
+export const LOAD_USER_REQUEST = "LOAD_USER_REQUEST";
+export const LOAD_USER_SUCCESS = "LOAD_USER_SUCCESS";
+export const LOAD_USER_FAILURE = "LOAD_USER_FAILURE";
 
 export const LOG_IN_REQUEST = "LOG_IN_REQUEST";
 export const LOG_IN_SUCCESS = "LOG_IN_SUCCESS";
@@ -94,16 +102,30 @@ const reducer = (state = initialState, action) => {
   return produce(state, (draft) => {
     switch (action.type) {
       case LOAD_MY_INFO_REQUEST:
+        draft.loadMyInfoLoading = true;
+        draft.loadMyInfoError = null;
+        draft.loadMyInfoDone = false;
+        break;
+      case LOAD_MY_INFO_SUCCESS:
+        draft.loadMyInfoLoading = false;
+        draft.me = action.data;
+        draft.loadMyInfoDone = true;
+        break;
+      case LOAD_MY_INFO_FAILURE:
+        draft.loadMyInfoLoading = false;
+        draft.loadMyInfoError = action.error;
+        break;
+      case LOAD_USER_REQUEST:
         draft.loadUserLoading = true;
         draft.loadUserError = null;
         draft.loadUserDone = false;
         break;
-      case LOAD_MY_INFO_SUCCESS:
+      case LOAD_USER_SUCCESS:
         draft.loadUserLoading = false;
-        draft.me = action.data;
+        draft.userInfo = action.data;
         draft.loadUserDone = true;
         break;
-      case LOAD_MY_INFO_FAILURE:
+      case LOAD_USER_FAILURE:
         draft.loadUserLoading = false;
         draft.loadUserError = action.error;
         break;
