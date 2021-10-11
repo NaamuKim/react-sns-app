@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Avatar, Button, Card, Comment, Image, List, Popover } from "antd";
 import {
   EllipsisOutlined,
@@ -18,6 +18,7 @@ import {
   REMOVE_POST_REQUEST,
   UNLIKE_POST_REQUEST,
   TOGETHER_REQUEST,
+  c,
 } from "../reducers/post";
 import FollowButton from "./FollowButton";
 
@@ -185,4 +186,5 @@ PostCard.propTypes = {
     Together: PropTypes.objectOf(PropTypes.any),
   }).isRequired,
 };
+
 export default PostCard;

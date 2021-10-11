@@ -41,6 +41,7 @@ const Home = () => {
       window.removeEventListener("scroll", onScroll);
     };
   }, [hasMorePosts, loadPostsLoading]);
+
   return (
     <AppLayout>
       {me && <PostForm />}
@@ -55,6 +56,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
   async (context) => {
     const cookie = context.req ? context.req.headers.cookie : "";
     axios.defaults.headers.Cookie = "";
+    console.log(cookie);
     if (context.req && cookie) {
       axios.defaults.headers.Cookie = cookie;
     }

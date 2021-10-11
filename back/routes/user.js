@@ -6,7 +6,6 @@ const { isLoggedIn, isNotLoggedIn } = require("./middlewares");
 const router = express.Router();
 
 router.get("/", async (req, res, next) => {
-  console.log(req.headers);
   try {
     if (req.user) {
       const fullUserWithoutPassword = await User.findOne({
@@ -141,6 +140,7 @@ router.delete("/:userId/follow", isLoggedIn, async (req, res, next) => {
     next(error);
   }
 });
+
 router.delete("/follower/:userId", isLoggedIn, async (req, res, next) => {
   // DELETE /follower/2
   try {

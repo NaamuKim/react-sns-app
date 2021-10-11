@@ -5,7 +5,7 @@ export const initialState = {
   loadMyInfoLoading: false, // 내 정보 로딩 시도중
   loadMyInfoDone: false,
   loadMyInfoError: false,
-  loadUserLoading: false,
+  loadUserLoading: false, //유저 정보 로딩중
   loadUserError: false,
   loadUserDone: false,
   followLoading: false, // 팔로우 시도중
