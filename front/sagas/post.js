@@ -129,7 +129,7 @@ function* addPost(action) {
 }
 
 function loadPostAPI(data) {
-  return axios.get(`/posts/${data}`);
+  return axios.get(`/post/${data}`);
 }
 
 function* loadPost(action) {
@@ -248,6 +248,7 @@ export default function* postSaga() {
     fork(watchLikePost),
     fork(watchUnlikePost),
     fork(watchAddPost),
+    fork(watchLoadPost),
     fork(watchLoadPosts),
     fork(watchRemovePost),
     fork(watchAddComment),

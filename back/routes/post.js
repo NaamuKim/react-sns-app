@@ -90,7 +90,6 @@ router.get("/:postId", async (req, res, next) => {
     if (!post) {
       return res.status(404).send("존재하지 않는 게시글입니다");
     }
-
     const fullPost = await Post.findOne({
       where: { id: post.id },
       include: [
@@ -112,6 +111,11 @@ router.get("/:postId", async (req, res, next) => {
           attributes: ["id", "nickname"],
         },
         {
+          model: User,
+          as: "Likers",
+          attributes: ["id", "nickname"],
+        },
+        {
           model: Image,
         },
         {
@@ -122,11 +126,6 @@ router.get("/:postId", async (req, res, next) => {
               attributes: ["id", "nickname"],
             },
           ],
-        },
-        {
-          model: User,
-          as: "Likers",
-          attributes: ["id"],
         },
       ],
     });
@@ -172,6 +171,17 @@ router.post("/:postId/retweet", isLoggedIn, async (req, res, next) => {
     const retweetWithPrevPost = await Post.findOne({
       where: { id: retweet.id },
       include: [
+        { model: User, attributes: ["id", "nickname"] },
+        { model: Image },
+        {
+          model: Comment,
+          include: [{ model: User, attributes: ["id", "nickname"] }],
+        },
+        {
+          model: User,
+          as: "Likers",
+          attributes: ["id"],
+        },
         {
           model: Post,
           as: "Retweet",
@@ -184,27 +194,6 @@ router.post("/:postId/retweet", isLoggedIn, async (req, res, next) => {
               model: Image,
             },
           ],
-        },
-        {
-          model: User,
-          attributes: ["id", "nickname"],
-        },
-        {
-          model: Image,
-        },
-        {
-          model: Comment,
-          include: [
-            {
-              model: User,
-              attributes: ["id", "nickname"],
-            },
-          ],
-        },
-        {
-          model: User,
-          as: "Likers",
-          attributes: ["id"],
         },
       ],
     });

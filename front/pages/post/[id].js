@@ -8,13 +8,32 @@ import { END } from "redux-saga";
 import AppLayout from "../../components/AppLayout";
 import PostCard from "../../components/PostCard";
 import { useSelector } from "react-redux";
+import Head from "next/head";
 
 const Post = () => {
   const router = useRouter();
   const { id } = router.query;
-  const singlePost = useSelector((state) => state.post);
+  const { singlePost } = useSelector((state) => state.post);
   return (
     <AppLayout>
+      <Head>
+        <title>{singlePost.User.nickname}님의 글</title>
+        <meta name="description" content={singlePost.content} />
+        <meta
+          property="og:title"
+          content={`${singlePost.User.nickname}님의 게시글`}
+        />
+        <meta property="og:description" content={singlePost.content} />
+        <meta
+          property="og:image"
+          content={
+            singlePost.Images[0]
+              ? singlePost.Images[0].src
+              : "https://nodebird.com/favicon.ico"
+          }
+        />
+        <meta property="og:url" content={`http://localhost:300/post/${id}`} />
+      </Head>
       <PostCard post={singlePost} />
     </AppLayout>
   );

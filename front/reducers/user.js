@@ -38,7 +38,7 @@ export const initialState = {
   me: null,
   userinfo: null,
   signUpData: {},
-  logInnData: {},
+  logInData: {},
 };
 
 export const LOAD_MY_INFO_REQUEST = "LOAD_MY_INFO_REQUEST";
