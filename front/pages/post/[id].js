@@ -1,4 +1,3 @@
-// post/[id].js
 import { useRouter } from "next/router";
 import wrapper from "../../store/configureStore";
 import axios from "axios";
