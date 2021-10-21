@@ -1,16 +1,15 @@
 import React, { useCallback, useEffect, useState } from "react";
-import AppLayout from "../components/AppLayout";
 import Head from "next/head";
 import { Button, Checkbox, Form, Input } from "antd";
-import useInput from "../hooks/useInput";
 import styled from "styled-components";
-import { LOAD_MY_INFO_REQUEST, SIGN_UP_REQUEST } from "../reducers/user";
 import { useDispatch, useSelector } from "react-redux";
 import Router from "next/router";
-import wrapper from "../store/configureStore";
 import axios from "axios";
-import { LOAD_POSTS_REQUEST } from "../reducers/post";
 import { END } from "redux-saga";
+import wrapper from "../store/configureStore";
+import { LOAD_MY_INFO_REQUEST, SIGN_UP_REQUEST } from "../reducers/user";
+import useInput from "../hooks/useInput";
+import AppLayout from "../components/AppLayout";
 
 const ErrorMessage = styled.div`
   color: darkred;
@@ -23,7 +22,7 @@ const SubmitWrapper = styled.div`
 const Signup = () => {
   const dispatch = useDispatch();
   const { signUpLoading, signUpDone, signUpError, me } = useSelector(
-    (state) => state.user
+    (state) => state.user,
   );
 
   useEffect(() => {
@@ -54,7 +53,7 @@ const Signup = () => {
       setPasswordCheck(e.target.value);
       setPasswordError(e.target.value !== password);
     },
-    [password]
+    [password],
   );
   const [term, setTerm] = useState(false);
   const [termError, setTermError] = useState(false);
@@ -63,6 +62,7 @@ const Signup = () => {
     setTermError(false);
   }, []);
 
+  // eslint-disable-next-line consistent-return
   const onSubmit = useCallback(() => {
     if (password !== passwordCheck) {
       return setPasswordError(true);
@@ -159,7 +159,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     });
     context.store.dispatch(END);
     await context.store.sagaTask.toPromise();
-  }
+  },
 );
 
 export default Signup;

@@ -55,7 +55,7 @@ const PostForm = () => {
         data: index,
       });
     },
-    []
+    [],
   );
 
   return (

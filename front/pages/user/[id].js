@@ -1,37 +1,37 @@
 import React, { useEffect } from "react";
-import AppLayout from "../../components/AppLayout";
 import { END } from "redux-saga";
 import { useDispatch, useSelector } from "react-redux";
-import PostCard from "../../components/PostCard";
-import { LOAD_USER_POSTS_REQUEST } from "../../reducers/post";
-import { LOAD_MY_INFO_REQUEST, LOAD_USER_REQUEST } from "../../reducers/user";
-import wrapper from "../../store/configureStore";
 import axios from "axios";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import { Card, Avatar } from "antd";
+import PostCard from "../../components/PostCard";
+import { LOAD_USER_POSTS_REQUEST } from "../../reducers/post";
+import { LOAD_MY_INFO_REQUEST, LOAD_USER_REQUEST } from "../../reducers/user";
+import wrapper from "../../store/configureStore";
+import AppLayout from "../../components/AppLayout";
 
 const User = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const { id } = router.query;
   const { mainPosts, hasMorePosts, loadPostsLoading } = useSelector(
-    (state) => state.post
+    (state) => state.post,
   );
   const { userInfo } = useSelector((state) => state.user);
 
   useEffect(() => {
     function onScroll() {
       if (
-        window.scrollY + document.documentElement.clientHeight >
-        document.documentElement.scrollHeight - 300
+        window.scrollY + document.documentElement.clientHeight
+        > document.documentElement.scrollHeight - 300
       ) {
         if (hasMorePosts && !loadPostsLoading) {
           dispatch({
             type: LOAD_USER_POSTS_REQUEST,
             lastId:
-              mainPosts[mainPosts.length - 1] &&
-              mainPosts[mainPosts.length - 1].id,
+              mainPosts[mainPosts.length - 1]
+              && mainPosts[mainPosts.length - 1].id,
             data: id,
           });
         }
@@ -47,7 +47,10 @@ const User = () => {
     <AppLayout>
       {userInfo && (
         <Head>
-          <title>{userInfo.nickname}님의 글</title>
+          <title>
+            {userInfo.nickname}
+            님의 글
+          </title>
           <meta
             name="description"
             content={`${userInfo.nickname}님의 게시글`}
@@ -126,7 +129,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     context.store.dispatch(END);
     await context.store.sagaTask.toPromise();
     return { props: {} };
-  }
+  },
 );
 
 export default User;

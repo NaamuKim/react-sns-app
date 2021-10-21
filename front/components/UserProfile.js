@@ -1,8 +1,9 @@
-import React, { useCallback } from "react";
-import { Avatar, Button, Card } from "antd";
-import Link from "next/Link";
-import { useDispatch, useSelector } from "react-redux";
-import { logoutRequestAction } from "../reducers/user";
+import React, { useCallback } from 'react';
+import { Avatar, Button, Card } from 'antd';
+// eslint-disable-next-line import/no-unresolved
+import Link from 'next/Link';
+import { useDispatch, useSelector } from 'react-redux';
+import { logoutRequestAction } from '../reducers/user';
 
 const UserProfile = () => {
   const dispatch = useDispatch();
@@ -25,7 +26,7 @@ const UserProfile = () => {
           </Link>
         </div>,
         <div key="followings">
-          <Link href={"/profile"}>
+          <Link href="/profile">
             <a>
               팔로잉
               <br />
@@ -34,7 +35,7 @@ const UserProfile = () => {
           </Link>
         </div>,
         <div key="followers">
-          <Link href={"/profile"}>
+          <Link href="/profile">
             <a>
               팔로워
               <br />
@@ -45,13 +46,13 @@ const UserProfile = () => {
       ]}
     >
       <Card.Meta
-        avatar={
+        avatar={(
           <Link href={`/user/${me.id}`}>
             <a>
               <Avatar>{me.nickname[0]}</Avatar>
             </a>
           </Link>
-        }
+        )}
         title={me.nickname}
       />
       <Button onClick={onLogOut} loading={logOutLoading}>

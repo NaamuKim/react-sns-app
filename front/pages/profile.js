@@ -1,19 +1,17 @@
 import React, { useEffect, useState, useCallback } from "react";
 import Head from "next/head";
-import AppLayout from "../components/AppLayout";
-import NicknameEditForm from "../components/NicknameEditForm";
-import FollowList from "../components/FollowList";
 import { useSelector } from "react-redux";
 import Router from "next/router";
-import { LOAD_MY_INFO_REQUEST } from "../reducers/user";
-import wrapper from "../store/configureStore";
-
 import useSWR from "swr";
 import axios from "axios";
 import { END } from "redux-saga";
+import AppLayout from "../components/AppLayout";
+import NicknameEditForm from "../components/NicknameEditForm";
+import FollowList from "../components/FollowList";
+import { LOAD_MY_INFO_REQUEST } from "../reducers/user";
+import wrapper from "../store/configureStore";
 
-const fetcher = (url) =>
-  axios.get(url, { withCredentials: true }).then((result) => result.data);
+const fetcher = (url) => axios.get(url, { withCredentials: true }).then((result) => result.data);
 
 const Profile = () => {
   const { me } = useSelector((state) => state.user);
@@ -22,12 +20,12 @@ const Profile = () => {
 
   const { data: followersData, error: followerError } = useSWR(
     `http://localhost:8080/user/followers?limit=${followersLimit}`,
-    fetcher
+    fetcher,
   );
 
   const { data: followingsData, error: followingError } = useSWR(
     `http://localhost:8080/user/followings?limit=${followingsLimit}`,
-    fetcher
+    fetcher,
   );
 
   useEffect(() => {
@@ -90,7 +88,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     });
     context.store.dispatch(END);
     await context.store.sagaTask.toPromise();
-  }
+  },
 );
 
 export default Profile;

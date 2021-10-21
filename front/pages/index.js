@@ -1,19 +1,19 @@
 import React, { useEffect } from "react";
-import AppLayout from "../components/AppLayout";
 import { END } from "redux-saga";
 import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import AppLayout from "../components/AppLayout";
 import PostCard from "../components/PostCard";
 import PostForm from "../components/PostForm";
 import { LOAD_POSTS_REQUEST } from "../reducers/post";
 import { LOAD_MY_INFO_REQUEST } from "../reducers/user";
 import wrapper from "../store/configureStore";
-import axios from "axios";
 
 const Home = () => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.user);
-  const { mainPosts, hasMorePosts, loadPostsLoading, togetherError } =
-    useSelector((state) => state.post);
+  // eslint-disable-next-line max-len
+  const { mainPosts, hasMorePosts, loadPostsLoading, togetherError } = useSelector((state) => state.post);
 
   useEffect(() => {
     if (togetherError) {
@@ -24,8 +24,8 @@ const Home = () => {
   useEffect(() => {
     function onScroll() {
       if (
-        window.scrollY + document.documentElement.clientHeight >
-        document.documentElement.scrollHeight - 300
+        window.scrollY + document.documentElement.clientHeight
+        > document.documentElement.scrollHeight - 300
       ) {
         if (hasMorePosts && !loadPostsLoading) {
           const lastId = mainPosts[mainPosts.length - 1]?.id;
@@ -45,7 +45,7 @@ const Home = () => {
   return (
     <AppLayout>
       {me && <PostForm />}
-      {mainPosts.map((post, index) => (
+      {mainPosts.map((post) => (
         <PostCard key={post.id} post={post} />
       ))}
     </AppLayout>
@@ -68,7 +68,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     });
     context.store.dispatch(END);
     await context.store.sagaTask.toPromise();
-  }
+  },
 );
 
 export default Home;

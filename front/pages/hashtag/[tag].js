@@ -1,5 +1,4 @@
-//hashtag/[tag]
-import React, { useCallback, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { END } from "redux-saga";
@@ -16,21 +15,21 @@ const Hashtag = () => {
   const router = useRouter();
   const { tag } = router.query;
   const { mainPosts, hasMorePosts, loadPostsLoading } = useSelector(
-    (state) => state.post
+    (state) => state.post,
   );
 
   useEffect(() => {
     const onScroll = () => {
       if (
-        window.pageYOffset + document.documentElement.clientHeight >
-        document.documentElement.scrollHeight - 300
+        window.pageYOffset + document.documentElement.clientHeight
+        > document.documentElement.scrollHeight - 300
       ) {
         if (hasMorePosts && !loadPostsLoading) {
           dispatch({
             type: LOAD_HASHTAG_POSTS_REQUEST,
             lastId:
-              mainPosts[mainPosts.length - 1] &&
-              mainPosts[mainPosts.length - 1].id,
+              mainPosts[mainPosts.length - 1]
+              && mainPosts[mainPosts.length - 1].id,
             data: tag,
           });
         }
@@ -70,7 +69,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     context.store.dispatch(END);
     await context.store.sagaTask.toPromise();
     return { props: {} };
-  }
+  },
 );
 
 export default Hashtag;

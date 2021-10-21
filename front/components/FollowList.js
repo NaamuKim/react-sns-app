@@ -29,13 +29,13 @@ const FollowList = ({ header, data, onClickMore, loading }) => {
       grid={{ gutter: 4, xs: 2, md: 3 }}
       size="small"
       header={<div>{header}</div>}
-      loadMore={
+      loadMore={(
         <div style={{ textAlign: "center", margin: "10px 0" }}>
           <Button onClick={onClickMore} loading={loading}>
             더 보기
           </Button>
         </div>
-      }
+      )}
       bordered
       dataSource={data}
       renderItem={(item) => (

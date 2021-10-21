@@ -1,22 +1,28 @@
+import React from "react";
 import { useRouter } from "next/router";
-import wrapper from "../../store/configureStore";
-import axios from "axios";
-import { LOAD_MY_INFO_REQUEST } from "../../reducers/user";
-import { LOAD_POST_REQUEST } from "../../reducers/post";
 import { END } from "redux-saga";
-import AppLayout from "../../components/AppLayout";
-import PostCard from "../../components/PostCard";
+import axios from "axios";
 import { useSelector } from "react-redux";
 import Head from "next/head";
+import wrapper from "../../store/configureStore";
+import { LOAD_MY_INFO_REQUEST } from "../../reducers/user";
+import { LOAD_POST_REQUEST } from "../../reducers/post";
+
+import AppLayout from "../../components/AppLayout";
+import PostCard from "../../components/PostCard";
 
 const Post = () => {
   const router = useRouter();
   const { id } = router.query;
   const { singlePost } = useSelector((state) => state.post);
   return (
+
     <AppLayout>
       <Head>
-        <title>{singlePost.User.nickname}님의 글</title>
+        <title>
+          {singlePost.User.nickname}
+          님의 글
+        </title>
         <meta name="description" content={singlePost.content} />
         <meta
           property="og:title"
@@ -55,7 +61,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     });
     context.store.dispatch(END);
     await context.store.sagaTask.toPromise();
-  }
+  },
 );
 
 export default Post;

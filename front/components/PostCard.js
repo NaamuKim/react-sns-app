@@ -9,12 +9,13 @@ import {
   RetweetOutlined,
 } from "@ant-design/icons";
 import PropTypes from "prop-types";
+// eslint-disable-next-line import/no-unresolved
 import Link from "next/Link";
 import { useDispatch, useSelector } from "react-redux";
+import moment from "moment";
 import PostImages from "./PostImages";
 import CommentForm from "./CommentForm";
 import PostCardContent from "./PostCardContent";
-import moment from "moment";
 import "moment/locale/ko";
 import {
   LIKE_POST_REQUEST,
@@ -42,6 +43,7 @@ const PostCard = ({ post }) => {
     });
   }, [id]);
 
+  // eslint-disable-next-line consistent-return
   const onUnlike = useCallback(() => {
     if (!id) {
       return alert("로그인이 필요합니다");
@@ -66,6 +68,7 @@ const PostCard = ({ post }) => {
     });
   }, [id]);
 
+  // eslint-disable-next-line consistent-return
   const onRemovePost = useCallback(() => {
     if (!id) {
       return alert("로그인이 필요합니다");
@@ -101,7 +104,7 @@ const PostCard = ({ post }) => {
           ),
           <Popover
             key="more"
-            content={
+            content={(
               <Button.Group>
                 {id && post.User.id === id ? (
                   <>
@@ -118,7 +121,7 @@ const PostCard = ({ post }) => {
                   <Button>신고</Button>
                 )}
               </Button.Group>
-            }
+            )}
           >
             <EllipsisOutlined />
           </Popover>,
@@ -140,13 +143,13 @@ const PostCard = ({ post }) => {
               {moment(post.createdAt).format("YYYY.MM.DD")}
             </div>
             <Card.Meta
-              avatar={
+              avatar={(
                 <Link href={`/user/${post.Retweet.User.id}`}>
                   <a>
                     <Avatar>{post.Retweet.User.nickname[0]}</Avatar>
                   </a>
                 </Link>
-              }
+              )}
               title={post.Retweet.User.nickname}
               description={<PostCardContent postData={post.Retweet.content} />}
             />
@@ -157,13 +160,13 @@ const PostCard = ({ post }) => {
               {moment(post.createdAt).fromNow()}
             </div>
             <Card.Meta
-              avatar={
+              avatar={(
                 <Link href={`/user/${post.User.id}`}>
                   <a>
                     <Avatar>{post.User.nickname[0]}</Avatar>
                   </a>
                 </Link>
-              }
+              )}
               title={post.User.nickname}
               description={<PostCardContent postData={post.content} />}
             />
@@ -183,13 +186,13 @@ const PostCard = ({ post }) => {
               <li>
                 <Comment
                   author={item.User.nickname}
-                  avatar={
+                  avatar={(
                     <Link href={`/user/${item.User.id}`}>
                       <a>
                         <Avatar>item.User.nickname</Avatar>
                       </a>
                     </Link>
-                  }
+                  )}
                   content={item.content}
                 />
               </li>
@@ -210,8 +213,8 @@ PostCard.propTypes = {
     Comments: PropTypes.arrayOf(PropTypes.object),
     Images: PropTypes.arrayOf(PropTypes.object),
     Likers: PropTypes.arrayOf(PropTypes.object),
-    TogetherId: PropTypes.number,
-    Together: PropTypes.objectOf(PropTypes.any),
+    RetweetId: PropTypes.number,
+    Retweet: PropTypes.objectOf(PropTypes.any),
   }).isRequired,
 };
 

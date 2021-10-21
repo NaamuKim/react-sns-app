@@ -3,11 +3,11 @@ import PropTypes from "prop-types";
 import styled, { createGlobalStyle } from "styled-components";
 import Link from "next/link";
 import { Input, Menu, Row, Col } from "antd";
+import { useSelector } from "react-redux";
+import Router from "next/router";
 import UserProfile from "./UserProfile";
 import LoginForm from "./LoginForm";
-import { useSelector } from "react-redux";
 import useInput from "../hooks/useInput";
-import Router from "next/router";
 
 const SearchInput = styled(Input.Search)`
   vertical-align: middle;

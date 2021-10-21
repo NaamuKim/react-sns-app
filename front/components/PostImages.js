@@ -77,6 +77,7 @@ const PostImages = ({ images }) => {
 };
 
 PostImages.propTypes = {
+  // eslint-disable-next-line react/require-default-props
   images: PropTypes.arrayOf(PropTypes.object),
 };
 
