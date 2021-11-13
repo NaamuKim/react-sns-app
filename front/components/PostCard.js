@@ -10,7 +10,7 @@ import {
 } from "@ant-design/icons";
 import PropTypes from "prop-types";
 // eslint-disable-next-line import/no-unresolved
-import Link from "next/Link";
+import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import PostImages from "./PostImages";

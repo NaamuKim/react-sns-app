@@ -1,6 +1,6 @@
 import React from "react";
 // eslint-disable-next-line import/no-unresolved
-import Link from "next/Link";
+import Link from "next/link";
 import PropTypes from "prop-types";
 
 const PostCardContent = ({ postData }) => (
