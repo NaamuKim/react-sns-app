@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react';
 import { Avatar, Button, Card } from 'antd';
-// eslint-disable-next-line import/no-unresolved
-import Link from 'next/Link';
+import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutRequestAction } from '../reducers/user';
 
