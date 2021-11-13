@@ -1,41 +1,35 @@
-module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define(
-    "User",
-    {
+const DataTypes= require('sequelize');
+const {Model}=DataTypes;
+
+module.exports = class Hashtag extends Model{
+  static init(sequelize){
+    return super.init({
       email: {
         type: DataTypes.STRING(30),
         allowNull: false,
-        unique: true,
+        unique:true,
       },
       nickname: {
         type: DataTypes.STRING(30),
-        allowNull: false,
+        allowNull:false,
       },
-      password: {
+      password:{
         type: DataTypes.STRING(100),
         allowNull: false,
-      },
-    },
-    {
-      charset: "utf8",
-      collate: "utf8_general_ci",
-    }
-  );
-
-  User.associate = (db) => {
+      }
+    },        {
+      modelName:'User',
+      tableName:'users',
+      charset: "utf8mb4",
+      collate: "utf8mb4_general_ci",
+      sequelize,
+    });
+  }
+  static associate(db){
     db.User.hasMany(db.Post);
     db.User.hasMany(db.Comment);
-    db.User.belongsToMany(db.Post, { through: "Like", as: "Liked" });
-    db.User.belongsToMany(db.User, {
-      through: "Follow",
-      as: "Followers",
-      foreignKey: "FollowingId",
-    });
-    db.User.belongsToMany(db.User, {
-      through: "Follow",
-      as: "Followings",
-      foreignKey: "FollowerId",
-    });
-  };
-  return User;
-};
+    db.User.belongsToMany(db.Post, {through: "Like", as: 'Liked'});
+    db.User.belongsToMany(db.User,{through:"Follow", as: 'Followers',foreignKey:'FollowingId'});
+    db.User.belongsToMany(db.User,{through:"Follow", as: 'Followings',foreignKey:'FollowerId'});
+  }
+}

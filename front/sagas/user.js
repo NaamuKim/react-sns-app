@@ -114,11 +114,11 @@ function* changeNickname(action) {
   }
 }
 
-function loadMyInfoAPI(data) {
+function loadMyInfoAPI() {
   return axios.get("/user");
 }
 
-function* loadMyInfo(action) {
+function* loadMyInfo() {
   try {
     const result = yield call(loadMyInfoAPI);
     yield put({
